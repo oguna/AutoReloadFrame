@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Starter Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" />
+
+    <!-- Custom styles for this template -->
+    <link href="starter-template.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <script language="JavaScript">
+        var timer;
+        var url;
+        var interval;
+        function my_reset() {
+            // get form values
+            url = url_id.value;
+            try {
+                interval = parseInt(interval_id.value);
+            } catch (e) {
+                interval = NaN;
+            }
+            // reload frame
+            iframe_id.src = url;
+            // set event
+            clearInterval(timer);
+            if (isNaN(interval) || interval==0) {
+                interval_id.value = ''
+                return;
+            }
+            timer = setInterval('my_reload()', interval*1000);
+        }
+        function my_reload() {
+            iframe_id.src = url;
+        }
+        function my_interval_validation() {
+            // do not work
+            if (interval_id.value == '') {
+                interval_id.parentNode.class = "form-group";
+                return;
+            }
+            tmp = 0;
+            try {
+                tmp = parseInt(interval_id.value);
+            } catch (e) {
+                interval_id.parentNode.class = "form-group error";
+            }
+        }
+    </script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">Auto Reload Frame</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <form class="navbar-form navbar-right">
+                    <div class="form-group">
+                        <input id="url_id" type="text" placeholder="URL" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <input id="interval_id" type="text" placeholder="Interval(second)" class="form-control" onchange="my_interval_validation()">
+                    </div>
+                    <button type="button" class="btn btn-success" onclick="my_reset()">Reset</button>
+                </form>
+            </div><!--/.navbar-collapse -->
+        </div>
+    </nav>
+
+        <iframe id="iframe_id" width="800" height="600" />
+
+    <!-- /.container -->
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="bootstrap/js/bootstrap.min.js"></script>
+</body>
+</html>
